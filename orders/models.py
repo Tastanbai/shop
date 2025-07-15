@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.db import models
 from accounts.models import Account
-from store.models import Product, Variation
-
+from store.models import Product
 
 class Payment(models.Model):
     objects = models.Manager()
@@ -39,10 +38,6 @@ class Order(models.Model):
     phone = models.CharField(max_length=15, verbose_name='Телефон')
     email = models.EmailField(max_length=50, verbose_name='Электронный адрес')
     address_line_1 = models.CharField(max_length=50, verbose_name='Адрес 1')
-    address_line_2 = models.CharField(max_length=50, blank=True, verbose_name='Адрес 2')
-    country = models.CharField(max_length=50, verbose_name='Страна')
-    region = models.CharField(max_length=50, verbose_name='Регион')
-    city = models.CharField(max_length=50, verbose_name='Город')
     order_note = models.CharField(max_length=100, blank=True, verbose_name='Примечание к заказу')
     order_total = models.FloatField(verbose_name='Сумма заказа')
     discount = models.FloatField(verbose_name='Скидка')
@@ -51,13 +46,13 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False, verbose_name='Заказан')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
-
+    
     @admin.display(description='Фамилия Имя')
     def full_name(self):
         return f'{self.last_name} {self.first_name}'
 
     def full_address(self):
-        return f'{self.address_line_1}; {self.address_line_2}'
+        return f'{self.address_line_1}'
 
     def __str__(self):
         return self.first_name
@@ -74,7 +69,6 @@ class OrderProduct(models.Model):
     payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Платеж')
     user = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name='Пользователь')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')
-    variations = models.ManyToManyField(Variation, blank=True, verbose_name='Вариации')
     quantity = models.IntegerField(verbose_name='Количество')
     product_price = models.FloatField(verbose_name='Цена товара')
     is_ordered = models.BooleanField(default=False, verbose_name='Заказан')

@@ -6,7 +6,9 @@
 
 <div class="container" style="margin-top: 50px;">
     <center><i class="fas fa-check-circle" style="font-size: 72px;margin-bottom: 20px;color: #28A745;"></i></center>
-    <h2 class="text-center">Оплата прошла успешно</h2>
+    <h2 class="text-center">Ваш заказ был успешно оформлен</h2>
+    <p class="text-center">С вами свяжется наш менеджер в ближайшее время для подтверждения заказа.</p>
+
 	<br>
 	<div class="text-center">
 		<a href="{% url 'store' %}" class="btn btn-success">Продолжить покупки</a>
@@ -20,11 +22,8 @@
                 <div class="panel-body p30">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="invoice-logo"><img src="{% static '/images/logo.png' %}" alt="Invoice logo" style="max-height: 40px;"></div>
-                        </div>
-                        <div class="col-lg-6">
                             <div class="invoice-from">
-                                <ul class="list-unstyled text-right">
+                                <ul class="list-unstyled text-left">
                                     <li><strong>Кому выставлено:</strong></li>
                                     <li>{{ order.full_name }}</li>
                                     <li>{{ order.full_address }}</li>
@@ -38,7 +37,6 @@
                                 <div class="well">
                                     <ul class="list-unstyled mb0">
                                         <li><strong>Заказ: </strong>{{ order.order_number }}</li>
-                                        <li><strong>ID транзакции: </strong>{{ trans_id }}</li>
                                         <li><strong>Дата заказа: </strong>{{ order.created_at }}</li>
                                         <li><strong>Статус: </strong>{{ order.payment.status }}</li>
                                     </ul>
@@ -68,31 +66,18 @@
                                                     </p>
                                                 </td>
                                                 <td class="text-center">{{ item.quantity }}</td>
-                                                <td class="text-center">{{ item.product_price }} RUB</td>
+                                                <td class="text-center">{{ item.product_price }} Тг</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="2" class="text-right">Всего без скидки:</td>
-                                                <td class="text-center">{{ sub_total }} RUB</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2" class="text-right">Скидка:</td>
-                                                <td class="text-center">{{ order.discount }} RUB</td>
-                                            </tr>
-
-                                            <tr>
                                                 <th colspan="2" class="text-right">ИТОГО:</th>
-                                                <th class="text-center">{{ order.order_total }} RUB</th>
+                                                <th class="text-center">{{ order.order_total }} Тг</th>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="invoice-footer mt25">
-                                <p class="text-center">Спасибо за покупку в магазине MensLine!</p>
                             </div>
                         </div>
                     </div>

@@ -4,12 +4,14 @@ from django.utils.html import format_html
 from slider.models import Slider
 
 
+from django.utils.html import mark_safe
+
+@admin.register(Slider)
 class SliderAdmin(admin.ModelAdmin):
-    def thumbnail(self, obj):
-        return format_html('<img src="{}" width="120" height="40"">'.format(obj.slider_image.url))
+    list_display = ('slider_title', 'slider_css', 'slider_image_preview')
 
-    thumbnail.short_description = 'Фото'
-    list_display = ('slider_title', 'thumbnail', 'slider_css',)
-
-
-admin.site.register(Slider, SliderAdmin)
+    def slider_image_preview(self, obj):
+        if obj.slider_image:
+            return mark_safe(f'<img src="{obj.slider_image.url}" width="100" />')
+        return "(No image)"
+    slider_image_preview.short_description = "Preview"

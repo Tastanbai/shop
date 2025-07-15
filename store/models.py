@@ -12,11 +12,11 @@ class Product(models.Model):
     description = models.TextField(blank=True, verbose_name='Описание')
     price = models.IntegerField(verbose_name='Цена')
     product_image = models.ImageField(upload_to='photos/products', verbose_name='Фото товара')
-    stock = models.IntegerField(verbose_name='Количество на складе')
     is_available = models.BooleanField(default=True, verbose_name='Доступен')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     modified_date = models.DateTimeField(auto_now=True, verbose_name='Дата изменений')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
+    specifications = models.TextField(blank=True, verbose_name='Характеристики')
 
     def get_url(self):
         """
@@ -32,52 +32,7 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    def average_review(self):
-        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating'))
-        avg = 0
-        if reviews['average'] is not None:
-            avg = float(reviews['average'])
-        return avg
-
-    def count_review(self):
-        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
-        count = 0
-        if reviews['count'] is not None:
-            count = int(reviews['count'])
-        return count
-
-
-class VariationManager(models.Manager):
-    def colors(self):
-        return super(VariationManager, self).filter(variation_category='color', is_active=True)
-
-    def sizes(self):
-        return super(VariationManager, self).filter(variation_category='size', is_active=True)
-
-
-variation_category_choice = (
-    ('color', 'цвет'),
-    ('size', 'размер'),
-)
-
-
-class Variation(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')
-    variation_category = models.CharField(max_length=100, choices=variation_category_choice, verbose_name='Категория '
-                                                                                                          'вариации')
-    variation_value = models.CharField(max_length=100, verbose_name='Значение вариации')
-    is_active = models.BooleanField(default=True, verbose_name='Активно')
-    created_date = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
-
-    objects = VariationManager()
-
-    def __str__(self):
-        return self.variation_value
-
-    class Meta:
-        verbose_name = 'Вариацию'
-        verbose_name_plural = 'Вариации'
-
+ 
 
 class ReviewRating(models.Model):
     objects = models.Manager()

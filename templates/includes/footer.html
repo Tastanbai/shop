@@ -1,24 +1,22 @@
 {% load static %}
 
-<footer class="section-footer border-top">
+<footer class="section-footer border-top mt-auto">  <!-- mt-auto обязательно -->
     <div class="container">
-        <section class="footer-bottom border-top row">
-            <div class="col-md-2">
-                <p class="text-muted"> &copy 2022 MensLine </p>
+        <section class="footer-bottom border-top row d-flex justify-content-between align-items-center py-3">
+            <div class="col-md-3">
+                <p class="text-muted mb-0"> &copy; ARMADA SERVICE </p>
             </div>
-            <div class="col-md-8 text-md-center">
-                <span class="px-2">info@gmail.com</span>
-                <span class="px-2">8(863)700-70-70</span>
-                <span class="px-2">Ростов-на-Дону, ул. Пушкинская, 7 </span>
-            </div>
-            <div class="col-md-2 text-md-right text-muted">
-                <i><img src="{% static './images/misc/iokassa_wb.png' %}" height="26"></i>
-                <i class="fab fa-lg fa-cc-visa"></i>
-                <i class="fab fa-lg fa-cc-mastercard"></i>
+            <div class="col-md-9 text-md-right">
+                <span class="px-2 d-block d-md-inline">+7 (777) 965-33-33</span>
+                <span class="px-2 d-block d-md-inline">
+                    г. Шымкент, улица Аргынбекова 2, БЦ Ул-АР 2 этаж 207. <br>
+                    Алматинская область, Каскелен, Абылай хан 74,
+                </span>
             </div>
         </section>
     </div>
 </footer>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -28,7 +26,6 @@
             $('.mainImage img').attr('src', $(this).attr("href"));
         })
     })
-
 </script>
 
 

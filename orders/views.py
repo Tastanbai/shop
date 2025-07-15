@@ -17,32 +17,28 @@ from telebot.sendmessage import send_telegram
 
 order_number = None
 
+from django.urls import reverse
 
 def place_order(request, total=0, quantity=0):
     global order_number
     current_user = request.user
 
-    # If the cart count is less or equal 0, then redirect back to shop
     cart_items = CartItem.objects.filter(user=current_user)
-    cart_count = cart_items.count()
-    if cart_count <= 0:
+    if cart_items.count() <= 0:
         return redirect('store')
 
     discount = 0
-    grand_total = 0
     for cart_item in cart_items:
         total += cart_item.product.price * cart_item.quantity
         quantity += cart_item.quantity
-    if total < 5000:
-        discount = round(total * 0.03)
-    else:
-        discount = round(total * 0.07)
-    grand_total = total - discount
+
+    discount = 0
+    grand_total = total
+
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            # Store all the billing information inside Order table
             data = Order()
             data.user = current_user
             data.first_name = form.cleaned_data['first_name']
@@ -50,32 +46,42 @@ def place_order(request, total=0, quantity=0):
             data.phone = form.cleaned_data['phone']
             data.email = form.cleaned_data['email']
             data.address_line_1 = form.cleaned_data['address_line_1']
-            data.address_line_2 = form.cleaned_data['address_line_2']
-            data.country = form.cleaned_data['country']
-            data.region = form.cleaned_data['region']
-            data.city = form.cleaned_data['city']
             data.order_note = form.cleaned_data['order_note']
             data.order_total = grand_total
             data.discount = discount
             data.ip = request.META.get('REMOTE_ADDR')
+            data.is_ordered = True  # сразу оформляем
             data.save()
-            # Generate order number
+
             current_date = datetime.now().strftime('%Y%m%d')
             order_number = current_date + '-' + str(data.id)
             data.order_number = order_number
             data.save()
 
-            order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
-            order_number = order.order_number
+            # перемещение товаров в заказ
+            for item in cart_items:
+                orderproduct = OrderProduct()
+                orderproduct.order = data
+                orderproduct.user = current_user
+                orderproduct.product = item.product
+                orderproduct.quantity = item.quantity
+                orderproduct.product_price = item.product.price
+                orderproduct.is_ordered = True
+                orderproduct.save()
 
-            context = {
-                'order': order,
-                'cart_items': cart_items,
-                'total': total,
-                'discount': discount,
-                'grand_total': grand_total,
-            }
-            return render(request, 'orders/payments.html', context)
+            
+
+            CartItem.objects.filter(user=current_user).delete()
+
+            # email, telegram и т.п. — по желанию можно оставить
+
+           
+            return redirect(f'/orders/order_complete/?order_number={order_number}&payment_id=manual')
+
+
+        else:
+            print("⚠️ Ошибки формы:", form.errors)  # <<< вот это добавь
+            return redirect('checkout')
     else:
         return redirect('checkout')
 
@@ -214,14 +220,21 @@ def order_complete(request):
         for i in ordered_products:
             sub_total += i.product_price * i.quantity
 
-        payment = Payment.objects.get(payment_id=trans_id)
+
+        try:
+            payment = Payment.objects.get(payment_id=trans_id)
+        except Payment.DoesNotExist:
+            payment = None
+
 
         context = {
             'order': order,
             'ordered_products': ordered_products,
-            'trans_id': payment.payment_id,
-            'sub_total': sub_total
+            'sub_total': sub_total, 
+            'trans_id': payment.payment_id if payment else trans_id
         }
         return render(request, 'orders/order_complete.html', context)
     except ObjectDoesNotExist:
         return redirect('home')
+
+

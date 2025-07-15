@@ -8,35 +8,51 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTop4">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link"> Ростов-на-дону </a>
+                <ul class="navbar-nav">
+                    <li><a href="{% url 'about' %}" class="nav-link text-primary">О нас</a></li>
+                    <li><a href="{% url 'contact' %}" class="nav-link text-primary">Контакты</a></li>
+                    <li><a href="{% url 'certificates' %}" class="nav-link text-primary">Сертификаты</a></li>
+                    <li><a href="{% url 'portfolio' %}" class="nav-link text-primary">Наши работы</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto d-flex align-items-center">
+                    <li class="nav-item">
+                        <a href="tel:+77006030380" class="nav-link text-primary" style="display: flex; align-items: center;">
+                            <i class="fa fa-phone" style="margin-right: 5px;"></i> +7 (777) 965-33-33
+                        </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">8(800)700-70-70</a>
+                    <li class="nav-item">
+                        <a href="tel:+77006030380" class="nav-link text-primary" style="display: flex; align-items: center;">
+                            <i class="fa fa-phone" style="margin-right: 5px;"></i> +7 (705) 856-01-72
+                        </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">8(863)700-70-70</a>
+                    <li class="nav-item mx-2">
+                        <a href="https://www.instagram.com/armada_service.kz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="nav-link">
+                            <i class="fab fa-instagram" style="color:#e1306c; font-size: 20px;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="https://wa.me/77779653333" target="_blank" class="nav-link">
+                            <i class="fab fa-whatsapp" style="color:green; font-size: 20px;"></i>
+                        </a>
                     </li>
                 </ul>
-                <!--                <ul class="navbar-nav">-->
-                <!--                    <li><a href="#" class="nav-link">О нас</a></li>-->
-                <!--                    <li><a href="#" class="nav-link">Оплата</a></li>-->
-                <!--                    <li><a href="#" class="nav-link">Доставка</a></li>-->
-                <!--                    <li><a href="#" class="nav-link">Контакты</a></li>-->
-                <!--                </ul>-->
             </div>
+            
         </div>
     </nav>
 
     <section class="header-main border-bottom">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-2 col-md-3 col-6">
-                    <a href="{% url 'home' %}" class="brand-wrap">
-                        <img class="logo" src="{% static './images/logo.png' %}">
+                <div class="col-lg-2 col-md-3 col-6 d-flex align-items-center">
+                    <a href="{% url 'home' %}" class="brand-wrap" style="text-decoration: none;">
+                        <span style="font-family: 'Georgia', serif; font-size: 20px; font-weight: bold;">
+                            <span style="color: #0056d2;">ARMADA</span> <span style="color: #6c757d;">SERVICE</span>
+                        </span>
                     </a>
                 </div>
+                
+                
                 <div class="col-lg col-sm col-md col-6 flex-grow-0">
                     <div class="category-wrap dropdown d-inline-block float-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -50,8 +66,6 @@
                         </div>
                     </div>
                 </div>
-                <a href="{% url 'store' %}" class="btn btn-outline-primary">Магазин</a>
-
                 <div class="col-lg  col-md-6 col-sm-12 col">
                     <form action="{% url 'search' %}" class="search" method="GET">
                         <div class="input-group w-100">

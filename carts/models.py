@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import Account
-from store.models import Product, Variation
+from store.models import Product
 
 
 class Cart(models.Model):
@@ -20,7 +20,6 @@ class CartItem(models.Model):
     objects = models.Manager()
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True, verbose_name='Пользователь')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')
-    variations = models.ManyToManyField(Variation, blank=True, verbose_name='Вариации')
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True, verbose_name='Корзина')
     quantity = models.IntegerField(verbose_name='Количество')
     is_active = models.BooleanField(default=True, verbose_name='Активно')

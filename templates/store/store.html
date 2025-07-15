@@ -4,16 +4,16 @@
 
 {% block content %}
 
-<section class="section-pagetop bg">
+<section class="section-pagetop bg" style="padding: 10px 0;">
     <div class="container">
         {% if 'search' in request.path %}
-        <h2 class="title-page">Результат поиска</h2>
+            <h2 class="title-page" style="margin: 0; font-size: 24px;">Результат поиска</h2>
         {% else %}
-        <h2 class="title-page">Наш магазин</h2>
+            <h2 class="title-page" style="margin: 0; font-size: 24px;">Наш магазин</h2>
         {% endif %}
-
     </div>
 </section>
+
 
 <section class="section-content padding-y">
     <div class="container">
@@ -83,7 +83,7 @@
 
                 <header class="border-bottom mb-4 pb-3">
                     <div class="form-inline">
-                        <span class="mr-md-auto"><b>{{ product_count }}</b> items found</span>
+                        <span class="mr-md-auto"><b>{{ product_count }}</b> найденные товары</span>
 
                     </div>
                 </header>
@@ -102,7 +102,7 @@
                                 <div class="fix-height">
                                     <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
                                     <div class="price-wrap mt-2">
-                                        <span class="price">{{ product.price }} ₽</span>
+                                        <span class="price">{{ product.price }} Тг</span>
                                     </div>
                                 </div>
                                 <a href="{{ product.get_url }}" class="btn btn-block btn-primary">Посмотреть детали</a>
@@ -156,6 +156,4 @@
 
     </div>
 </section>
-
-
 {% endblock %}

@@ -68,8 +68,8 @@
                             </td>
                             <td>
                                 <div class="price-wrap">
-                                    <var class="price">{{ cart_item.sub_total }} ₽</var>
-                                    <small class="text-muted"> {{ cart_item.product.price }} ₽ за шт. </small>
+                                    <var class="price">{{ cart_item.sub_total }} Тг</var>
+                                    <small class="text-muted"> {{ cart_item.product.price }} Тг за шт. </small>
                                 </div>
                             </td>
                             <td class="text-right">
@@ -82,9 +82,7 @@
                         </tbody>
                     </table>
 
-                    <p style="text-indent: 30px" class="text-muted small"><sup>*</sup>Скидка рассчитывается от объема
-                        заказа: при сумме заказа до 5000 руб. - 3%, от 5000 руб. и выше - 7% </p>
-
+                  
                 </div>
 
             </aside>
@@ -94,20 +92,13 @@
                     <div class="card-body">
                         <dl class="dlist-align">
                             <dt>Всего:</dt>
-                            <dd class="text-right">{{ total }} ₽</dd>
-                        </dl>
-                        <dl class="dlist-align">
-                            <dt>Скидка:</dt>
-                            <dd class="text-right">- {{ discount }} ₽</dd>
+                            <dd class="text-right">{{ total }} Тг</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt><b>Итого:</b></dt>
-                            <dd class="text-right text-dark b"><strong>{{ grand_total }} ₽</strong></dd>
+                            <dd class="text-right text-dark b"><strong>{{ grand_total }} Тг</strong></dd>
                         </dl>
                         <hr>
-                        <p class="text-center mb-3">
-                            <img src="{% static './images/misc/iokassa_color.png' %}" height="26">
-                        </p>
                         <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Оформить заказ </a>
                         <a href="{% url 'store' %}" class="btn btn-light btn-block">Продолжить покупки</a>
                     </div>

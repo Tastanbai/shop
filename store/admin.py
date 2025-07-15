@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Product, Variation, ReviewRating, ProductGallery
+from .models import Product, ReviewRating, ProductGallery
 import admin_thumbnails
 
 
@@ -11,21 +11,13 @@ class ProductGalleryInline(admin.TabularInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('product_name', 'price', 'stock', 'category', 'modified_date', 'is_available')
+    list_display = ('product_name', 'price',  'category', 'modified_date', 'is_available')
     search_fields = ('product_name', 'category__category_name')
     list_per_page = 20
     list_max_show_all = 100
     prepopulated_fields = {"slug": ("product_name",)}
     inlines = [ProductGalleryInline]
 
-
-class VariationAdmin(admin.ModelAdmin):
-    list_display = ('product', 'variation_category', 'variation_value', 'is_active')
-    list_editable = ('is_active',)
-    list_filter = ('product', 'variation_category', 'variation_value')
-    search_fields = ('product__product_name',)
-    list_per_page = 50
-    list_max_show_all = 100
 
 
 class ReviewRatingAdmin(admin.ModelAdmin):
@@ -49,6 +41,5 @@ class ProductGalleryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Variation, VariationAdmin)
 admin.site.register(ReviewRating, ReviewRatingAdmin)
 admin.site.register(ProductGallery, ProductGalleryAdmin)

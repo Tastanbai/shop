@@ -13,14 +13,13 @@
             <!--            </ol>-->
             <div class="carousel-inner img-fluid rounded">
                 {% for slide in slider_list %}
-                <div class="carousel-item {{slide.slider_css}}">
-                    <img class="d-block w-100" src="{{slide.slider_image.url}}" alt="{{slide.slider_title}}">
-                    <!--                    <div class="carousel-caption d-none d-md-block">-->
-                    <!--                        <h5>{{slide.slider_title}}</h5>-->
-                    <!--                        <p>{{slide.slider_text}}</p>-->
-                    <!--                    </div>-->
-                </div>
+                    {% if slide.slider_image %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img class="d-block w-100" src="{{ slide.slider_image.url }}" alt="{{ slide.slider_title }}" style="height: auto; max-height: 550px; object-fit: contain;">
+                        </div>
+                    {% endif %}
                 {% endfor %}
+
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -50,7 +49,7 @@
                     <a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.product_image.url }}"> </a>
                     <figcaption class="info-wrap">
                         <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
-                        <div class="price mt-1">{{ product.price }} ₽</div>
+                        <div class="price mt-1">{{ product.price }} Тг</div>
                         <div class="rating-star">
                             <span>
                                 <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1 %}-half-o{% endif %}"

@@ -11,12 +11,8 @@
                 <div class="panel-body p30">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="invoice-logo"><img src="{% static '/images/logo.png' %}" alt="Invoice logo" style="max-height: 40px;"></div>
-                        </div>
-
-                        <div class="col-lg-6">
                             <div class="invoice-from">
-                                <ul class="list-unstyled text-right">
+                                <ul class="list-unstyled text-left">
                                     <li><strong>Кому выставлено:</strong></li>
                                     <li>{{ order.full_name }}</li>
                                     <li>{{ order.full_address }}</li>
@@ -67,15 +63,6 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="2" class="text-right">Всего без скидки:</td>
-                                                <td class="text-center">{{ sub_total }} RUB</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2" class="text-right">Скидка:</td>
-                                                <td class="text-center">{{ order.discount }} RUB</td>
-                                            </tr>
-
-                                            <tr>
                                                 <th colspan="2" class="text-right">ИТОГО:</th>
                                                 <th class="text-center">{{ order.order_total }} RUB</th>
                                             </tr>
@@ -84,9 +71,6 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="invoice-footer mt25">
-                                <p class="text-center">Спасибо за покупку в магазине MensLine!</p>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load get_index %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4 text-center">Сертификаты</h1>
+    <div class="row">
+        {% for certificate in certificates %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ certificate.image.url }}"
+                     class="card-img-top img-thumbnail certificate-img"
+                     alt="Сертификат {{ certificate.id }}"
+                     data-toggle="modal"
+                     data-target="#imageModal"
+                     data-image="{{ certificate.image.url }}">
+                {% if certificate.description %}
+                <div class="card-body">
+                    <p class="card-text">{{ certificate.description }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>Сертификаты пока не добавлены.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Модальное окно Bootstrap 4 -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <img src="" id="modalImage" class="img-fluid w-100" alt="Увеличенное изображение">
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Скрипт: установить картинку в модалке при клике -->
+<script>
+    $(document).ready(function () {
+        $('.certificate-img').on('click', function () {
+            var imageUrl = $(this).data('image');
+            $('#modalImage').attr('src', imageUrl);
+        });
+    });
+</script>
+{% endblock %}

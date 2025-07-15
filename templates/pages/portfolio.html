@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  /* Контейнер для видео */
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    background-color: #000;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* Текстовая часть карточки */
+  .card-body {
+    padding: 1rem 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+    font-weight: 600;
+  }
+
+  .card-text {
+    flex-grow: 1;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #666;
+  }
+
+  /* Сообщение при отсутствии видео */
+  .no-items {
+    font-style: italic;
+    color: #999;
+    font-size: 1.1rem;
+    margin-top: 3rem;
+  }
+</style>
+
+<div class="container">
+  <br>
+  <h1 class="text-center">Наши работы</h1>
+  <br>
+  <div class="row">
+    {% for item in items %}
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <div class="video-container">
+          <iframe 
+            src="{{ item.get_embed_url }}" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen 
+            loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ item.title }}</h5>
+          <p class="card-text">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12 no-items">
+      Пока нет добавленных работ.
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Контакты</h1>
+            <p class="text-muted">Свяжитесь с нами удобным для вас способом</p>
+        </div>
+
+        <div class="row">
+            <!-- Левая колонка: информация -->
+            <div class="col-lg-6">
+                <div class="mb-4">
+                    <h4 class="fw-semibold">Название компании</h4>
+                    <p>ARMADA SERVICE</p>
+                </div>
+                <div class="mb-4">
+                    <h4 class="fw-semibold">Адрес</h4>
+                    <p>
+                        г. Шымкент, ул. Аргынбекова 2, БЦ Ул-Ар, 2 этаж, офис 207<br>
+                        г. Каскелен, ул. Абылай хан 74, Алматинская область
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="fw-semibold">Телефоны</h4>
+                    <p>
+                        <a href="tel:+77779653333" class="text-decoration-none">+7 (777) 965-33-33</a> — Колл-центр<br>
+                        <a href="tel:+77058560172" class="text-decoration-none">+7 (705) 856-01-72</a> — Отдел продаж
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="fw-semibold">Email</h4>
+                    <p><a href="mailto:nomd@bgz.kz" class="text-decoration-none">nomd@bgz.kz</a></p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="fw-semibold">Сайт</h4>
+                    <p><a href="https://armada-service.kz" target="_blank" class="text-decoration-none">armada-service.kz</a></p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="fw-semibold">WhatsApp</h4>
+                    <p><a href="https://wa.me/77779653333" target="_blank" class="text-decoration-none">Написать в WhatsApp</a></p>
+                </div>
+            </div>
+
+            <!-- Правая колонка: карта -->
+            <div class="col-lg-6">
+                <h4 class="fw-semibold mb-3">Карта</h4>
+                <div style="border-radius: 8px; overflow: hidden;">
+                    <!-- Вставь сюда iframe от Google Maps или 2GIS -->
+                    <iframe 
+                        src="https://www.google.com/maps?q=42.35938488650896,69.61739446944561&hl=ru&output=embed" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: 0 0 0.375rem 0.375rem;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Инфо-блок -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="p-4">
+                    <h5 class="fw-bold mb-2">Как нас найти</h5>
+                    <p class="mb-1">Мы находимся в центре города, в бизнес-центре Ул-Ар. Удобная парковка и доступность транспорта.</p>
+                    <p class="mb-0">Работаем с понедельника по пятницу, с 9:00 до 18:00. Свяжитесь с нами по телефону или через мессенджер — мы всегда на связи!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
