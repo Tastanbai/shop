@@ -159,7 +159,12 @@ def forgot_password(request):
                 'token': default_token_generator.make_token(user),
             })
             to_email = email
-            send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email = EmailMessage(
+                mail_subject, 
+                message, 
+                from_email='kitaphana@oqz.kz',
+                to=[to_email])
+            send_email.content_subtype = 'html'
             send_email.send()
 
             messages.success(request, 'Письмо сброса пароля отправлено на вашу электронную почту.')
