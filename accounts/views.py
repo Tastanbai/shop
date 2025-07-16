@@ -40,7 +40,7 @@ def register(request):
 
             # USER ACTIVATION
             current_site = get_current_site(request)
-            mail_subject = 'Активируйте свой аккаунт в MensLine'
+            mail_subject = 'Активируйте свой аккаунт в Armada-Service'
             message = render_to_string('accounts/account_verification_email.html', {
                 'user': user,
                 'domain': current_site,
@@ -48,7 +48,12 @@ def register(request):
                 'token': default_token_generator.make_token(user),
             })
             to_email = email
-            send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email = EmailMessage(
+                mail_subject,
+                message, 
+                from_email='kitaphana@oqz.kz',
+                to=[to_email])
+            send_email.content_subtype = 'html'
             send_email.send()
             return redirect('/accounts/login/?command=verification&email=' + email)
     else:
